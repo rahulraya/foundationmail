@@ -1,9 +1,12 @@
 package com.example.foundationMail.Model;
 
+import java.util.List;
+
 public class EmailRequest {
     private String to;
     private String subject;
     private String text;
+    private List<String> ngos;
 	public String getTo() {
 		return to;
 	}
@@ -22,8 +25,13 @@ public class EmailRequest {
 	public void setText(String text) {
 		this.text = text;
 	}
+	public List<String> getNgos() {
+		return ngos;
+	}
+	public void setNgos(List<String> ngos) {
+		this.ngos = ngos;
+	}
 
-    // getters and setters
     
 }
 

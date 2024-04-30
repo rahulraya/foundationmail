@@ -1,5 +1,7 @@
 package com.example.foundationMail.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -28,13 +30,15 @@ public class EmailService {
 	@Value("$(spring.mail.username)")
 	private String from;
 
-	public void sendEmail(String to, String subject, String text) {
+	public void sendEmail(String to, String subject, String text, List<String> ngos) {
+		ngos.stream().forEach(x -> {
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo(to);
+		message.setTo(x);
 		message.setFrom(from);
 		message.setSubject(subject);
 		message.setText(text);
-		javaMailSender.send(message);
+		javaMailSender.send(message);}
+		);
 	}
 
 	

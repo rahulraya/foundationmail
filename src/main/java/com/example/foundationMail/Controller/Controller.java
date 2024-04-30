@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.foundationMail.Model.EmailRequest;
+import com.example.foundationMail.Model.Foundation;
+import com.example.foundationMail.Model.Nonprofit;
 import com.example.foundationMail.Service.EmailService;
 
 @RestController
@@ -28,8 +30,8 @@ public class Controller {
 	@PostMapping(value = "/sendEmail", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> sendEmail(@RequestBody EmailRequest emailRequest) {
 		try {
-			
-			emailService.sendEmail(emailRequest.getTo(), emailRequest.getSubject(), emailRequest.getText());
+
+			emailService.sendEmail(emailRequest.getTo(), emailRequest.getSubject(), emailRequest.getText(), emailRequest.getNgos());
 			return ResponseEntity.ok("Email sent successfully");
 		} catch (Exception e) {
 			System.out.println(e);
@@ -37,16 +39,16 @@ public class Controller {
 		}
 	}
 
-	/*
-	 * @PostMapping("/nonprofits") public ResponseEntity<Nonprofit>
-	 * saveNonprofit(@RequestBody Nonprofit nonprofit) { Nonprofit savedNonprofit =
-	 * emailService.saveNonprofit(nonprofit); return new
-	 * ResponseEntity<>(savedNonprofit, HttpStatus.CREATED); }
-	 * 
-	 * @PostMapping("/foundations") public ResponseEntity<Foundation>
-	 * saveFoundation(@RequestBody Foundation foundation) { Foundation
-	 * savedFoundation = emailService.saveFoundation(foundation); return new
-	 * ResponseEntity<>(savedFoundation, HttpStatus.CREATED); }
-	 */
+	@PostMapping("/nonprofits")
+	public ResponseEntity<Nonprofit> saveNonprofit(@RequestBody Nonprofit nonprofit) {
+		Nonprofit savedNonprofit = emailService.saveNonprofit(nonprofit);
+		return new ResponseEntity<>(savedNonprofit, HttpStatus.CREATED);
+	}
+
+	@PostMapping("/foundations")
+	public ResponseEntity<Foundation> saveFoundation(@RequestBody Foundation foundation) {
+		Foundation savedFoundation = emailService.saveFoundation(foundation);
+		return new ResponseEntity<>(savedFoundation, HttpStatus.CREATED);
+	}
 
 }
