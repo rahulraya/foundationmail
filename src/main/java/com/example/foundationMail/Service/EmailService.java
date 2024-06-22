@@ -50,4 +50,7 @@ public class EmailService {
 		  return foundationRepository.save(foundation); 
 	  }
 	 
+	  public List<String> getNgosMail() { 
+		  return nonprofitRepository.findemail();
+	  }
 }
